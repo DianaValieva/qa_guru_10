@@ -1,34 +1,25 @@
 from selene.support.shared import browser
 from selene import be, have, by
 import os
-
+from pages.reg_page import RegistrationPage
 
 def test_submit(open_browser):
-    browser.open('https://demoqa.com/automation-practice-form')
+    reg_page = RegistrationPage()
+    reg_page.open()
 
-    browser.element('#firstName').should(be.blank).type("Diana")
-    browser.element('#lastName').should(be.blank).type("Valieva")
-    browser.element('#userEmail').should(be.blank).type("di7051@gmail.com")
-    browser.element("#gender-radio-2").double_click()
-    browser.element('#userNumber').should(be.blank).type("9874956293")
-    browser.element('#dateOfBirthInput').click()
-    browser.element('.react-datepicker__month-select').click().element(by.text('December')).click()
-    browser.element('.react-datepicker__year-select').click().element(by.text('1991')).click()
-    browser.element('.react-datepicker__day--030').click()
-    browser.element('#subjectsInput').should(be.blank).type("Maths").press_enter()
-    browser.element('[for="hobbies-checkbox-1"]').click()
-    browser.element('#currentAddress').should(be.blank).type("ufa")
-    browser.element('#react-select-3-input').type('NCR').press_enter()
-    browser.element('#react-select-4-input').type('Delhi').press_enter()
-    #browser.element('#uploadPicture').send_keys(os.path.abspath(
-    #    'dog.jpg'))
+    reg_page.fill_first_name("Diana")
+    reg_page.fill_last_name("Valieva")
+    reg_page.fill_email("di7051@gmail.com")
+    reg_page.fill_phone_number("9874956293")
+    reg_page.fill_date_of_birth("30", "December", "1991")
+    reg_page.fill_gender("Female")
+    reg_page.select_user_subject("Maths")
+    reg_page.user_hobby_checkbox("Sports")
+    reg_page.user_picture("dog.jpg")
+    reg_page.fill_address("Ufa")
+    reg_page.user_state("NCR")
+    reg_page.user_city("Delhi")
 
-    browser.element('#submit').click()
+    reg_page.submit_the_form()
+    reg_page.check_form("Diana Valieva", 'di7051@gmail.com', 'Female', '9874956293', '30 December,1991', "Maths", "Sports","dog.jpg", "Ufa", 'NCR Delhi')
 
-    browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
-    browser.all('.table').all('td')[1].should(have.exact_text('Diana Valieva'))
-    browser.all('.table').all('td')[3].should(have.exact_text('di7051@gmail.com'))
-    browser.all('.table').all('td')[5].should(have.exact_text('Female'))
-    browser.all('.table').all('td')[7].should(have.exact_text('9874956293'))
-    browser.all('.table').all('td')[9].should(have.exact_text('30 December,1991'))
-    browser.all('.table').all('td')[19].should(have.exact_text('NCR Delhi'))
