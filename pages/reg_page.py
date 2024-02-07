@@ -55,7 +55,7 @@ class RegistrationPage:
         return self
 
     def user_picture(self, picture_name):
-        pic_path= str(Path(__file__).parent.joinpath(f'resources/{picture_name}'))
+        pic_path = str(Path(__file__).parent.parent.joinpath(f'resources/{picture_name}'))
         browser.element('#uploadPicture').send_keys(pic_path)
         return self
 
@@ -81,7 +81,7 @@ class RegistrationPage:
                    hobbies,
                    file,
                    current_address,
-                   state_and_city,):
+                   state_and_city, ):
         browser.element('.table').all('td').even.should(
             have.exact_texts(
                 full_name,
@@ -97,5 +97,3 @@ class RegistrationPage:
             )
         )
         return self
-
-

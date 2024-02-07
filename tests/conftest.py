@@ -1,10 +1,10 @@
 import pytest
-from selene.support.shared import browser
+from selene import browser
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function", autouse=True)
 def open_browser():
-    browser.driver.set_window_size(width=1920, height=1080)
-    browser.config.timeout=4
+    browser.config.window_width = 1920
+    browser.config.window_height = 1080
     yield browser
     browser.quit()

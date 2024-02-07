@@ -1,9 +1,7 @@
-from selene.support.shared import browser
-from selene import be, have, by
-import os
 from pages.reg_page import RegistrationPage
 
-def test_submit(open_browser):
+
+def test_registration_successful():
     reg_page = RegistrationPage()
     reg_page.open()
 
@@ -21,5 +19,5 @@ def test_submit(open_browser):
     reg_page.user_city("Delhi")
 
     reg_page.submit_the_form()
-    reg_page.check_form("Diana Valieva", 'di7051@gmail.com', 'Female', '9874956293', '30 December,1991', "Maths", "Sports","dog.jpg", "Ufa", 'NCR Delhi')
-
+    reg_page.check_form("Diana Valieva", 'di7051@gmail.com', 'Female', '9874956293', '30 December,1991', "Maths",
+                        "Sports", "dog.jpg", "Ufa", 'NCR Delhi')
