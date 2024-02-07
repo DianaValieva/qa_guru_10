@@ -1,13 +1,14 @@
 from selene import browser, have, be, by
-from src.users import User
+from data.users import User
 from pathlib import Path
+
 
 class RegistrationPage:
     def open_registration_page(self):
         browser.open('https://demoqa.com/automation-practice-form')
         return self
 
-    def register(self, user:User):
+    def register(self, user: User):
         browser.element('#firstName').type(user.first_name)
         browser.element('#lastName').type(user.last_name)
         browser.element('#userEmail').type(user.user_email)
@@ -29,7 +30,7 @@ class RegistrationPage:
             browser.element('[for="hobbies-checkbox-2"]').click()
         elif user.user_hobby == 'Music':
             browser.element('[for="hobbies-checkbox-3"]').click()
-        pic_path = str(Path(__file__).parent.joinpath(f'resources/{user.user_picture}'))
+        pic_path = str(Path(__file__).parent.parent.joinpath(f'resources/{user.user_picture}'))
         browser.element('#uploadPicture').send_keys(pic_path)
         browser.element('#currentAddress').should(be.blank).type(user.user_current_address)
         browser.element('#react-select-3-input').type(user.user_state).press_enter()
